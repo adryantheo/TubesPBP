@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "934735273982",
+    "firebase_url": "https://sponsorship-kelompokd.firebaseio.com",
+    "project_id": "sponsorship-kelompokd",
+    "storage_bucket": "sponsorship-kelompokd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934735273982:android:eb01a4dc8cb313cc",
+        "android_client_info": {
+          "package_name": "kelompokd.com.sponsorship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934735273982-ehgff31bs11jj3mbqdglvku8n9g3sb7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kelompokd.com.sponsorship",
+            "certificate_hash": "fa4995e287375c1f55eb3fcf14c8ef87a6f50898"
+          }
+        },
+        {
+          "client_id": "934735273982-368d6cg0ppn4e4vie8nirap74r9070v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjUd_lg0vnUAmNeBSl2D0BoruAAl10SjE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934735273982-368d6cg0ppn4e4vie8nirap74r9070v7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
