@@ -8,7 +8,7 @@
     android:background="#EBEBEB">
 
     <ImageView
-        android:id="@+id/imageview1"
+        android:id="@+id/Berhasil"
         android:layout_width="217dp"
         android:layout_height="95dp"
         android:layout_alignParentEnd="true"
@@ -48,10 +48,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="52dp"
         android:background="#8AFFBF"
-        android:text="LOGIN" />
+        android:text="LOGIN"
+        android:textAlignment="center"
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageview1"
+        android:id="@+id/Berhasil"
         android:layout_width="217dp"
         android:layout_height="95dp"
         android:layout_alignParentBottom="true"

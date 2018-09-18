@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UploadProposal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="114dp"
+        android:layout_height="124dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/profile"
+        app:civ_border_color="#329D0F"
+        app:civ_border_width="2dp" />
+
+    <ImageView
+        android:id="@+id/Berhasil"
+        android:layout_width="30dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/back" />
+
+    <ImageView
+        android:id="@+id/Berhasil"
+        android:layout_width="168dp"
+        android:layout_height="29dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="94dp"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/sponsor"
+        tools:ignore="DuplicateIds" />
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="32dp"
+        android:layout_height="29dp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/Berhasil"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/logofix" />
+
+    <EditText
+        android:id="@+id/NamaPerusahaan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginTop="59dp"
+        android:ems="10"
+        android:hint="Nama Perusahaan"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/emailU"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/NamaPerusahaan"
+        android:layout_marginTop="130dp"
+        android:ems="10"
+        android:hint="email"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/NamaUser"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="236dp"
+        android:ems="10"
+        android:hint="Nama User"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/emailU"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/NamaUser"
+        android:layout_marginBottom="222dp"
+        android:ems="10"
+        android:hint="EmailUser"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/NamaEvent"
+        android:layout_width="315dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/NamaUser"
+        android:layout_marginBottom="156dp"
+        android:ems="10"
+        android:hint="Nama Event"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/NamaUser"
+        android:layout_marginBottom="92dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/editText6"
+        android:layout_marginEnd="47dp"
+        android:background="#8AFFBF"
+        android:text="Upload"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:background="#8AFFBF"
+        android:text="SEND"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+</RelativeLayout>

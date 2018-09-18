@@ -19,7 +19,7 @@ public class LupaPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lupa_password);
-        email=(EditText) findViewById(R.id.email);
+        email=(EditText) findViewById(R.id.emailU);
         password=(EditText) findViewById(R.id.password);
         cpassword=(EditText) findViewById(R.id.cpassword);
         btnBatal=(Button) findViewById(R.id.btnBatal);

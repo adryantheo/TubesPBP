@@ -8,11 +8,12 @@
     tools:context=".MenuUtama">
 
     <ImageView
-        android:id="@+id/imageview1"
-        android:layout_width="172dp"
+        android:id="@+id/Berhasil"
+        android:layout_width="227dp"
         android:layout_height="60dp"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/imageview"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imageview"
+        android:layout_marginEnd="12dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +29,8 @@
         android:layout_height="59dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="13dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,12 +41,12 @@
         app:srcCompat="@drawable/logofix" />
 
     <ImageView
-        android:id="@+id/imageview2"
-        android:layout_width="29dp"
-        android:layout_height="32dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageview3"
-        android:layout_marginEnd="41dp"
+        android:id="@+id/Profil"
+        android:layout_width="156dp"
+        android:layout_height="91dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imageview"
+        android:layout_marginBottom="139dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,13 +57,29 @@
         app:srcCompat="@drawable/akun" />
 
     <ImageView
-        android:id="@+id/imageview3"
-        android:layout_width="29dp"
-        android:layout_height="32dp"
+        android:id="@+id/Event"
+        android:layout_width="155dp"
+        android:layout_height="93dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="81dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="153dp"
+        android:contentDescription="TODO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.016"
+        app:srcCompat="@drawable/acara"
+        tools:ignore="DuplicateIds" />
+
+    <ImageView
+        android:id="@+id/Perusahaan"
+        android:layout_width="156dp"
+        android:layout_height="94dp"
+        android:layout_alignStart="@+id/imageview"
+        android:layout_alignTop="@+id/Event"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,11 +90,11 @@
         app:srcCompat="@drawable/perusahaan" />
 
     <ImageView
-        android:id="@+id/imageview4"
-        android:layout_width="29dp"
-        android:layout_height="32dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageview2"
+        android:id="@+id/Out"
+        android:layout_width="153dp"
+        android:layout_height="93dp"
+        android:layout_alignStart="@+id/Event"
+        android:layout_alignTop="@+id/Profil"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,18 +104,47 @@
         app:layout_constraintVertical_bias="0.016"
         app:srcCompat="@drawable/keluar" />
 
-    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:layout_below="@+id/imageview1"
-        android:layout_alignParentStart="true">
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include layout="@layout/itemmenuutama"></include>
-        <include layout="@layout/itemmenuutama"></include>
-        <include layout="@layout/itemmenuutama"></include>
-        <include layout="@layout/itemmenuutama"></include>
-    </LinearLayout>
-    </ScrollView>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="258dp"
+        android:layout_toStartOf="@+id/Berhasil"
+        android:text="PERUSAHAAN"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/Event"
+        android:layout_alignTop="@+id/textView8"
+        android:text="EVENT BERLANGSUNG"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="105dp"
+        android:layout_toEndOf="@+id/imageview"
+        android:text="PROFIL"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView13"
+        android:layout_marginEnd="72dp"
+        android:text="KELUAR"
+        android:textStyle="bold" />
 
 </RelativeLayout>
