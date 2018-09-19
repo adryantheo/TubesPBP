@@ -35,8 +35,7 @@ public class Login extends AppCompatActivity {
         btnLupapass=(Button) findViewById(R.id.btnLupaPass);
         btnLogin=(Button) findViewById(R.id.btnLogin);
         //final String Username = username.getText().toString().trim();
-        final String Email = email.getText().toString().trim();
-        final String Password = password.getText().toString().trim();
+
 
         if(mAuth.getCurrentUser()!=null){
             finish();
@@ -47,7 +46,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               user_login(Email,Password);
+               user_login();
 
 
 
@@ -55,6 +54,7 @@ public class Login extends AppCompatActivity {
                 //startActivity(intent);
             }
         });
+
 
         btnLupapass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,10 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void user_login(final String Email, String Password){
+    private void user_login(){
+        final String Email = email.getText().toString().trim();
+        final String Password = password.getText().toString().trim();
+
         mAuth.signInWithEmailAndPassword(Email, Password)
                 .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
                     @Override

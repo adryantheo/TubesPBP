@@ -1,5 +1,6 @@
 package kelompokd.com.sponsorship;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
    private EditText username;
     private EditText email;
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    ProgressDialog mDialog;
 
     String Username, Email, Password;
     @Override
@@ -60,16 +65,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-           String Username = username.getText().toString().trim();
-           String Email = email.getText().toString().trim();
-           String Password = password.getText().toString().trim();
 
-           register_user(Email, Password);
 
-                Intent intent=new Intent(MainActivity.this,PendaftaranBerhasil.class);
-                startActivity(intent);
+           register_user();
+
+               // Intent intent=new Intent(MainActivity.this,PendaftaranBerhasil.class);
+                //startActivity(intent);
             }
         });
+
+
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
         role1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         role2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -96,23 +105,45 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void register_user(final String Email, String Password){
+    @Override
+    public void onClick(View v) {
+        if(v==btnSingUp){
+            register_user();
+        }else if(v==btnLogin){
+            startActivity(new Intent(MainActivity.this, Login.class));
+        }
+    }
+
+    private void register_user(){
+
+        Username = username.getText().toString().trim();
+        Email = email.getText().toString().trim();
+        Password = password.getText().toString().trim();
 
         if(TextUtils.isEmpty(Email)){
             Toast.makeText(this,"Masukkan Email",Toast.LENGTH_LONG).show();
             return;
-        }
-        if(TextUtils.isEmpty(Password)){
+        } else if(TextUtils.isEmpty(Password)){
             Toast.makeText(this,"Masukkan Password",Toast.LENGTH_LONG).show();
+        } else if(Password.length()<6){
+            Toast.makeText(this,"Password Terlalu Pendek",Toast.LENGTH_LONG).show();
         }
 
-        mAuth.createUserWithEmailAndPassword(Email,Password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+       // mDialog.setMessage("Harap Tunggu...");
+      //  mDialog.setCanceledOnTouchOutside(false);
+      //  mDialog.show();
+
+
+        mAuth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            finish();
-                            Log.d("mAuth", "onComplete" +task.getException().getMessage());
+                            sendEmailVerification();
+//                            mDialog.dismiss();
+                            OnAuth(task.getResult().getUser());
+                            mAuth.signOut();
+                            //finish();
+                          // Log.d("mAuth", "onComplete" +task.getException().getMessage());
                             startActivity(new Intent(getApplicationContext(),Login.class));
                         }else{
                             Toast.makeText(MainActivity.this,"Registerasi Gagal",Toast.LENGTH_SHORT).show();
@@ -120,4 +151,61 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     };
+
+    private void createAuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+        };
+    }
+
+    private void sendEmailVerification(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
+            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    Toast.makeText(MainActivity.this,"Cek Email Tod",Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut();
+                }
+            });
+        }
+    }
+
+    private void OnAuth(FirebaseUser user){
+        createAnewUser(user.getUid());
+    }
+
+    private void createAnewUser(String uid){
+        User user = BuildNewUser();
+        mDatabase.child(uid).setValue(user);
+    }
+
+    private User BuildNewUser(){
+        return new User(
+                getUsername(),
+                getEmail(),
+                new Date().getTime());
+    }
+
+    public String getUsername(){
+        return Username;
+    }
+
+    public String getEmail(){
+        return Email;
+    }
+
+
 }
