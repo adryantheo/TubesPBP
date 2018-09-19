@@ -7,10 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class PendaftaranBerhasil extends AppCompatActivity {
 
-    Button btnlogin;
-    ImageView Berhasil;
+    private FirebaseAuth mAuth;
+    private Button btnlogin;
+    private ImageView Berhasil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +24,7 @@ public class PendaftaranBerhasil extends AppCompatActivity {
         Berhasil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent=new Intent(PendaftaranBerhasil.this,Login.class);
                 startActivity(intent);
             }
