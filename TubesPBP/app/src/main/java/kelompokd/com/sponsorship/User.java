@@ -1,15 +1,18 @@
 package kelompokd.com.sponsorship;
 
 public class User {
-    String DisplayUsername;
-    String Email;
-    long createdAt;
+    private String DisplayUsername;
+    private String Email;
+    private String Password;
 
-    public User(){};
-    public User(String displayUsername,String email,long createdAt){
+
+    public User(String username, String email, long time){};
+    public User(String displayUsername,String email, String password){
         this.DisplayUsername=displayUsername;
         this.Email=email;
-        this.createdAt=createdAt;
+        this.Password=password;
+
+
     }
 
 
@@ -21,7 +24,9 @@ public class User {
         return Email;
     }
 
-    public long getCreatedAt() {
-        return createdAt;
+    public String getPassword(){
+        return Password;
     }
+
+
 }

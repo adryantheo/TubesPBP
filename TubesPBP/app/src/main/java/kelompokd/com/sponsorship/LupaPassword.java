@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LupaPassword extends AppCompatActivity {
 
-    EditText email;
-    EditText password;
-    EditText cpassword;
-    Button btnSave;
-    Button btnBatal;
+    private EditText email;
+    private EditText password;
+    private EditText cpassword;
+    private Button btnSave;
+    private Button btnBatal;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +28,15 @@ public class LupaPassword extends AppCompatActivity {
         cpassword=(EditText) findViewById(R.id.cpassword);
         btnBatal=(Button) findViewById(R.id.btnBatal);
         btnSave=(Button) findViewById(R.id.btnSave);
+        mAuth = FirebaseAuth.getInstance();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+
                 Intent intent= new Intent(LupaPassword.this,BerhasilGantiPass.class);
                 startActivity(intent);
             }

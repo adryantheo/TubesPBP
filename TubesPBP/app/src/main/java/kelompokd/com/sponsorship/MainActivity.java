@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Date;
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth.AuthStateListener mAuthListener;
 
    private EditText username;
-    private EditText email;
+    private EditText mEmail;
     private EditText password;
     private EditText cpassword;
     private CheckBox role1;
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    ProgressDialog mDialog;
+    private ProgressDialog mDialog;
+
 
     String Username, Email, Password;
     @Override
@@ -46,9 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_user=database.getReference("User");
         username=(EditText) findViewById(R.id.username);
-        email=(EditText) findViewById(R.id.emailU);
+        mEmail=(EditText) findViewById(R.id.emailU);
         password=(EditText) findViewById(R.id.password);
         cpassword=(EditText) findViewById(R.id.cpassword);
         role1=(CheckBox) findViewById(R.id.role1);
@@ -56,18 +62,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSingUp=(Button) findViewById(R.id.btnSignUp);
         btnLogin=(Button) findViewById((R.id.btnLogin));
 
+
         if(mAuth.getCurrentUser()!=null){
             finish();
             startActivity(new Intent(getApplicationContext(),MenuUtama.class));
-        }
+    }
 
         btnSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
+                mDialog.setMessage("Please Wating...");
+                mDialog.show();
+
+                table_user.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.child(username.getText().toString()).exists()){
+                            mDialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Username sudah digunakaan", Toast.LENGTH_SHORT).show();
+                        }else{
+                            mDialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+                            User user = new User(username.getText().toString(),mEmail.getText().toString(), password.getText().toString());
+                            table_user.child(username.getText().toString()).setValue(user);
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                register_user();
 
 
-
-           register_user();
 
                // Intent intent=new Intent(MainActivity.this,PendaftaranBerhasil.class);
                 //startActivity(intent);
@@ -117,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void register_user(){
 
         Username = username.getText().toString().trim();
-        Email = email.getText().toString().trim();
+        Email = mEmail.getText().toString().trim();
         Password = password.getText().toString().trim();
 
         if(TextUtils.isEmpty(Email)){
@@ -176,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful())
-                    Toast.makeText(MainActivity.this,"Cek Email Tod",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,"Cek Email ",Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut();
                 }
             });
