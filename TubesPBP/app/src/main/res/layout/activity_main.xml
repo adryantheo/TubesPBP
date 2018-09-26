@@ -151,27 +151,6 @@
         android:textStyle="bold" />
 
 
-    <CheckBox
-        android:id="@+id/role1"
-        android:layout_width="123dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/imageview"
-        android:layout_marginBottom="153dp"
-        android:text="Pengguna"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold" />
 
-    <CheckBox
-        android:id="@+id/role2"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/Berhasil"
-        android:layout_alignTop="@+id/role1"
-        android:text="Perusahaan"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textStyle="bold" />
 
 </RelativeLayout>

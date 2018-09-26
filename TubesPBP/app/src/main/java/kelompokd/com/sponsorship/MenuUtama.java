@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +32,8 @@ public class MenuUtama extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
+        Toast.makeText(MenuUtama.this, user.getUid().toString(), Toast.LENGTH_SHORT).show();
+
         Out=(ImageView) findViewById(R.id.Out);
         Profil=(ImageView) findViewById(R.id.Profil);
         Perusahaan=(ImageView) findViewById(R.id.Perusahaan);
@@ -56,7 +59,7 @@ public class MenuUtama extends AppCompatActivity {
         Profil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MenuUtama.this,PilihProfil.class);
+                Intent intent=new Intent(MenuUtama.this,ProfilUser.class);
                 startActivity(intent);
             }
         });

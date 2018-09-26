@@ -1,14 +1,32 @@
 package kelompokd.com.sponsorship;
 
 public class User {
-    private String DisplayUsername;
+    private String Username;
     private String Email;
     private String Password;
 
+    public String getUsername() {
+        return Username;
+    }
 
-    public User(String username, String email, long time){};
-    public User(String displayUsername,String email, String password){
-        this.DisplayUsername=displayUsername;
+    public void  setUsername(String Username){this.Username=Username;}
+
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void  setEmail(String Email){this.Email=Email;}
+
+    public String getPassword(){
+        return Password;
+    }
+
+    public void  setPassword(String Password){this.Password=Password;}
+
+
+    public User(String username,String email, String password){
+        this.Username=username;
         this.Email=email;
         this.Password=password;
 
@@ -16,17 +34,7 @@ public class User {
     }
 
 
-    public String getUsername() {
-        return DisplayUsername;
-    }
 
-    public String getEmail() {
-        return Email;
-    }
-
-    public String getPassword(){
-        return Password;
-    }
 
 
 }

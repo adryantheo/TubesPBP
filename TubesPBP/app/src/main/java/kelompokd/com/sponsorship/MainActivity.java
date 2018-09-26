@@ -25,40 +25,60 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-   private EditText username;
+   private EditText mUsername;
     private EditText mEmail;
-    private EditText password;
+    private EditText mPassword;
     private EditText cpassword;
-    private CheckBox role1;
-    private CheckBox role2;
+
     private Button btnSingUp;
     private Button btnLogin;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private ProgressDialog mDialog;
+    private static final String TAG_SUCCESS="success";
+    private static final String TAG_MESSAGE="Message";
+    private String url = "https://pbpdatabase.000webhostapp.com/tambah.php";
+
 
 
     String Username, Email, Password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        JsonParser jsonParser = new JsonParser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user=database.getReference("User");
-        username=(EditText) findViewById(R.id.username);
+        mUsername=(EditText) findViewById(R.id.username);
         mEmail=(EditText) findViewById(R.id.emailU);
-        password=(EditText) findViewById(R.id.password);
+        mPassword=(EditText) findViewById(R.id.password);
         cpassword=(EditText) findViewById(R.id.cpassword);
-        role1=(CheckBox) findViewById(R.id.role1);
-        role2=(CheckBox) findViewById(R.id.role2);
+
         btnSingUp=(Button) findViewById(R.id.btnSignUp);
         btnLogin=(Button) findViewById((R.id.btnLogin));
 
@@ -71,9 +91,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
-                mDialog.setMessage("Please Wating...");
-                mDialog.show();
+                onClickRegister();
+
+            }
+        });
+
+
+
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Login.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+    }
+
+    private void onClickRegister(){
+        final ProgressDialog mDialog = new ProgressDialog(MainActivity.this);
+        mDialog.setMessage("Please Wating...");
+        mDialog.show();
+
+/*
+        Gson gson = new GsonBuilder().setDateFormat("YYYY-MM-DD").create();
+        Retrofit.Builder builder = new Retrofit
+                .Builder()
+                .baseUrl("https://pbpdatabase.000webhostapp.com/")
+                .addConverterFactory(GsonConverterFactory.create(gson));
+
+        Retrofit retrofit = builder.build();
+        UserApi userApi = retrofit.create(UserApi.class);
+        userApi.regUser(mUsername.getText().toString(),mEmail.getText().toString(),mPassword.getText().toString());
+*/
+
+        //Call<JSONObject> UserCall= userApi.regUser(mUsername.getText().toString(),mEmail.getText().toString(),mPassword.getText().toString());
+
+
+
+
+
+
+
+
+
+
+                /*
 
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -95,45 +161,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-
-                register_user();
-
-
-
-               // Intent intent=new Intent(MainActivity.this,PendaftaranBerhasil.class);
-                //startActivity(intent);
-            }
-        });
+                */
 
 
 
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,Login.class);
-                startActivity(intent);
-            }
-        });
 
+        // Intent intent=new Intent(MainActivity.this,PendaftaranBerhasil.class);
+        //startActivity(intent);
 
-        role1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked()){
-                    role2.setChecked(false);
-                }
-            }
-        });
-
-        role2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked()){
-                    role1.setChecked(false);
-                }
-            };
-        });
+        register_user();
     }
 
     @Override
@@ -147,9 +184,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void register_user(){
 
-        Username = username.getText().toString().trim();
-        Email = mEmail.getText().toString().trim();
-        Password = password.getText().toString().trim();
+        Username = mUsername.getText().toString();
+        Email = mEmail.getText().toString();
+        Password = mPassword.getText().toString();
 
         if(TextUtils.isEmpty(Email)){
             Toast.makeText(this,"Masukkan Email",Toast.LENGTH_LONG).show();
@@ -169,6 +206,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            User user = new User(Username,Email,Password);
+                            mDatabase.getDatabase().getReference("User")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(MainActivity.this, "Sukses",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                             sendEmailVerification();
 //                            mDialog.dismiss();
                             OnAuth(task.getResult().getUser());
@@ -220,14 +268,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void createAnewUser(String uid){
         User user = BuildNewUser();
-        mDatabase.child(uid).setValue(user);
+//        mDatabase.child(uid).setValue(user);
     }
 
     private User BuildNewUser(){
         return new User(
                 getUsername(),
                 getEmail(),
-                new Date().getTime());
+                getPassword()
+                );
     }
 
     public String getUsername(){
@@ -236,6 +285,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String getEmail(){
         return Email;
+    }
+
+    public String getPassword(){
+        return Password;
     }
 
 

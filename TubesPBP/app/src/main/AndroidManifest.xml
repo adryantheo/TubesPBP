@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kelompokd.com.sponsorship">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -28,15 +28,14 @@
         <activity android:name=".Keluar" />
         <activity android:name=".KeluarBerhasil" />
         <activity android:name=".EditProfilUser" />
-        <activity android:name=".EditProfilPerusahaan" />
-        <activity android:name=".ProfilPerusahaan" />
         <activity android:name=".ProfilUser" />
         <activity android:name=".UploadProposal" />
         <activity android:name=".MenuPerusahaan" />
         <activity android:name=".MenuEvent" />
-        <activity android:name=".PilihProfil" />
         <activity android:name=".UploadPerusahaan" />
-        <activity android:name=".UploadEvent"></activity>
+        <activity android:name=".UploadEvent" />
+        <activity android:name=".ShowActivity" />
+        <activity android:name=".RecycleAdapter"></activity>
     </application>
 
 </manifest>

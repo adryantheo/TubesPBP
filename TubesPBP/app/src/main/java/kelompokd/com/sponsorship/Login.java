@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -74,8 +75,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            finish();;
-                            startActivity(new Intent(getApplicationContext(), MenuUtama.class));
+
+                            finish();
+
+                            startActivity(new Intent(Login.this, MenuUtama.class));
                         }else{
                             Toast.makeText(Login.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
                         }
